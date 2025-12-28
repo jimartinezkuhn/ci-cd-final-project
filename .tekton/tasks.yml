@@ -22,9 +22,8 @@ spec:
         set -eu
         echo "Removing all files from ${WORKSPACE_SOURCE_PATH} ..."
         if [ -d "${WORKSPACE_SOURCE_PATH}" ] ; then
-          rm -rf "${WORKSPACE_SOURCE_PATH:?}"/*
-          rm -rf "${WORKSPACE_SOURCE_PATH}"/.[!.]*
-          rm -rf "${WORKSPACE_SOURCE_PATH}"/..?*
+          # Use find to delete all contents including hidden files reliably
+          find "${WORKSPACE_SOURCE_PATH}" -mindepth 1 -delete
         fi
 
 ---
